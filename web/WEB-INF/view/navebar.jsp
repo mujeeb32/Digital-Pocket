@@ -11,10 +11,16 @@
             <a class="nav-link" href="index.jsp"><span class="fas fa-home fa-1x"></span> Home </a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="LoginPage.jsp"><span class="fas fa-user-plus fa-1x"></span> Login </a>
+            <form action="fc/Login" method="Post">
+                <button type="submit" class="btn btn-outline-light"><span class="fas fa-user-plus fa-1x"></span> Login</button>           
+            </form>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="RegisterPage.jsp"><span class="fa fa-1x fa-user-circle"></span> Sign Up </a>
+            
+            <form action="fc/Register" method="Post">
+                <button type="submit" class="btn btn-outline-light "><span class="fa fa-1x fa-user-circle"></span> Sign Up</button>
+                
+            </form>
         </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">

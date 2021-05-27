@@ -9,12 +9,23 @@
         <link href="CSS/design.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <style>
+            .primary-background{
+                background:#09af00;
+            }
+            .primary-background1{
+                background:#b9b2c2;
+            }
+            .primary-background2{
+                background:#ddd6e7;
+            }
+        </style>
     </head>
     <body>
-        <%@include file="navebar.jsp" %>
+        <%@include file="navebar_1.jsp" %>
         
         <div class="container ">
-            <div class="card-header text-center ">
+            <div class="card-header text-center primary-background1 ">
                 <span class="fa fa-3x fa-user-circle"></span><br>
                 <p>Register Here</p>
                 
@@ -22,8 +33,8 @@
             
             <div class="col-lg-12 well">
                 <div class="row">
-                    <div class="card-body ">
-				<form>
+                    <div class="card-body primary-background2">
+                        <form action="" method="Post">
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-6 form-group">
@@ -38,11 +49,11 @@
 						<div class="row">
 							<div class="col-sm-4 form-group">
 								<label>City</label>
-								<input type="text" placeholder="Enter City Name Here.." class="form-control">
+                                                                <input type="text" name="city" placeholder="Enter City Name Here.." class="form-control">
 							</div>	
 							<div class="col-sm-4 form-group">
 								<label>State</label>
-								<input type="text" placeholder="Enter State Name Here.." class="form-control">
+								<input type="text" name="state" placeholder="Enter State Name Here.." class="form-control">
 							</div>	
 							<div class="col-sm-4 form-group">
 								<label for="country">Country</label><span style="color: red !important; display: inline; float: none;">*</span>      
@@ -221,24 +232,24 @@
 						<div class="row">
 							<div class="col-sm-6 form-group">
 								<label>Recovery Question?</label>
-								<input type="text" placeholder="Enter Recovery Question Here.." class="form-control">
+                                                                <input type="text" name="question" placeholder="Enter Recovery Question Here.." class="form-control">
 							</div>		
 							<div class="col-sm-6 form-group">
 								<label>Recovery Answer</label>
-								<input type="text" placeholder="Enter Recovery Answer Here.." class="form-control">
+                                                                <input type="text" name="answer" placeholder="Enter Recovery Answer Here.." class="form-control">
 							</div>	
 						</div>						
 					<div class="form-group">
 						<label>Phone Number</label>
-						<input type="text" placeholder="Enter Phone Number Here.." class="form-control">
+						<input type="text" name="phone" placeholder="Enter Phone Number Here.." class="form-control">
 					</div>		
 					<div class="form-group">
 						<label>Email Address</label>
-						<input type="text" placeholder="Enter Email Address Here.." class="form-control">
+                                                <input type="text" name="email" placeholder="Enter Email Address Here.." class="form-control">
 					</div>	
                                         <div class="form-group">
 						<label>Password</label>
-						<input type="password" placeholder="Enter password Address Here.." name="password" class="form-control">
+						<input type="password"  placeholder="Enter password Address Here.." name="password" class="form-control">
 					</div>
                                         <div class="form-group">
                                             <label for="gender">Select Gender</label>
@@ -251,12 +262,18 @@
                                             <label class="form-check-label" for="exampleCheck1">agree term and conditons</label>
                                         </div>
                                             <br>
-                                            <div>
-                                                <button type="button" class="btn btn-lg btn-info">Submit</button>
-                                                <button id="gotosignin"><a href="LoginPage.jsp" id="gotosignin" class="tab">Login Form</a></button>
+                                            <div  class="row">
+                                                <button type="submit" class="btn btn-lg btn-info col-md-6">Submit</button>
+                                        </form>          
+                                                    
+                                                <form action="Login" method="Post">
+                                                    <button type="submit" class="btn btn-primary col-md-12 text-left"role="button"><span class="fa fa-user-plus fa-2x "></span> Login</button>
+            
+                                                </form>
+                                                <%--<button id="gotosignin"><a href="LoginPage.jsp" id="gotosignin" class="tab">Login Form</a></button>--%>
                                             </div>
 					</div>
-				</form> 
+				
                 </div>
 				</div>
 	</div>

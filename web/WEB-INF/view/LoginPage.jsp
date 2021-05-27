@@ -1,9 +1,3 @@
-<%-- 
-    Document   : LoginPage
-    Created on : 18 May, 2021, 4:13:18 PM
-    Author     : mujeeb
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,16 +5,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="CSS/design.css" rel="stylesheet" type="text/css"/>
+        <link href="../../CSS/design.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <style>
-            
+            .primary-background{
+                background:#09af00;
+            }
         </style>
     </head>
     <body>
-        <%@include file="navebar.jsp" %>
+        <%@include file="navebar_1.jsp" %>
         <main class="d-flex align-items-center " style="height:80vh" >
+            
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 offset-md-4">

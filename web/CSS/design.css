@@ -5,7 +5,9 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-
+.primary-background{
+    background:#09af00;
+}
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -86,9 +88,14 @@ body {
 #gotosignin {
   float: right;
 }
-.primary-background{
-    background:#09af00;
-}
+
 .container-fluid{
     
+}
+.primary-background1{
+                background:#b9b2c2;
+ }
+ .left_div img{
+	height: 198px;
+	width: 1910px;
 }

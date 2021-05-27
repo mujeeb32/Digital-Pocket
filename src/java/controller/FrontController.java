@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 package controller;
-
+import java.io.*;
+import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Business;
 
 /**
  *
@@ -18,30 +20,29 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class FrontController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FrontController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FrontController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            try{
+                String cp=request.getContextPath();
+                String sp=request.getServletPath();
+                String pi=request.getPathInfo();
+                if(pi.equals("/index.jsp")){
+                    String path="http://localhost:8080"+cp+pi;
+                    response.sendRedirect(path);
+                }
+                FileReader reader = new FileReader("/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/models/DBProperties.properties");
+                Properties p = new Properties();
+                p.load(reader);
+                String pt=p.getProperty(pi.substring(1));
+                //request.getRequestDispatcher("WEB-INF/view/LoginPage.jsp").forward(request,response);
+                String viewpath="/WEB-INF/view/"+pt;
+                out.println(viewpath);
+                request.getRequestDispatcher(viewpath).forward(request, response);
+            }catch(Exception ee){
+                ee.printStackTrace();
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
