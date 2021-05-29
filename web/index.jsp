@@ -38,7 +38,7 @@
                     </p>
                     <%--
                         request.getRequestDispatcher("WEB-INF/view/RegisterPage.jsp").forward(request,response);
-                        request.getRequestDispatcher("WEB-INF/view/LoginPage.jsp").forward(request,response);
+                       // request.getRequestDispatcher("WEB-INF/view/LoginPage.jsp").forward(request,response); 
                     --%>
                   </div>
                 </div>

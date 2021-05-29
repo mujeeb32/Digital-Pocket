@@ -1,49 +1,50 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller;
-import java.io.*;
-import java.util.*;
+
+import entites.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Business;
+import models.Pojo;
 
-/**
- *
- * @author mujeeb
- */
-public class FrontController extends HttpServlet {
+public class Registration extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            response.setContentType("text/html;charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            try{
-                String cp=request.getContextPath();
-                String sp=request.getServletPath();
-                String pi=request.getPathInfo();
-                //out.println(cp+"--"+sp+"--"+pi);
-                if(pi.equals("/index.jsp")){
-                    String path="http://localhost:8080"+cp+pi;
-                    response.sendRedirect(path);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String fname = request.getParameter("firstname");
+            String lname = request.getParameter("lastname");
+            String email = request.getParameter("email");
+            String pass = request.getParameter("password");
+            String city = request.getParameter("city");
+            String state = request.getParameter("state");
+            String country = request.getParameter("country");
+            String question = request.getParameter("question");
+            String answer = request.getParameter("answer");
+            String gender = request.getParameter("gender");
+            String phone = request.getParameter("phone");
+            String check= request.getParameter("check");
+            int city_id=5;
+            int state_id=5;
+            int country_code=100;
+            int status=0;
+            if(check==null){
+                out.println("Box not checked");
+            }else{
+                User user=new User(fname,lname,email,pass,city,state,country,question,answer,gender,city_id,state_id,country_code,status,phone);
+                UserSetDB usd=new UserSetDB(Pojo.getConnection());
+                if(usd.saveUser(user)){
+                    out.println("<h1>Register Successfully</h1>");
+                }else{
+                    out.println("<h1>Error you are not Register</h1>");
                 }
-                FileReader reader = new FileReader("/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/models/DBProperties.properties");
-                Properties p = new Properties();
-                p.load(reader);
-                String pt=p.getProperty(pi.substring(1));
-                //request.getRequestDispatcher("WEB-INF/view/LoginPage.jsp").forward(request,response);
-                String viewpath=pt;
-                //out.println(viewpath);
-                request.getRequestDispatcher(viewpath).forward(request, response);
-            }catch(Exception ee){
-                ee.printStackTrace();
             }
+            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

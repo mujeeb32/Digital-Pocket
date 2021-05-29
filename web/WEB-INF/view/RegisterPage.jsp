@@ -34,7 +34,7 @@
             <div class="col-lg-12 well">
                 <div class="row">
                     <div class="card-body primary-background2">
-                        <form action="" method="Post">
+                        <form action="Registration" method="Post">
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-6 form-group">
@@ -254,11 +254,11 @@
                                         <div class="form-group">
                                             <label for="gender">Select Gender</label>
                                             <br>
-                                            <input type="radio" id="gender" name="gender">Male
-                                            <input type="radio" id="gender" name="gender">Female
+                                            <input type="radio"  id="gender" name="gender" value="male" >Male
+                                            <input type="radio"  id="gender" name="gender" value="famale">Female
                                         </div>
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <input name="check" type="checkbox" class="form-check-input" id="exampleCheck1">
                                             <label class="form-check-label" for="exampleCheck1">agree term and conditons</label>
                                         </div>
                                             <br>

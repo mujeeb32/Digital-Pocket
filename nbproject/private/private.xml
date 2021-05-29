@@ -3,17 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/web/WEB-INF/web.xml</file>
-            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/web/index.jsp</file>
+            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/controller/UserSetDB.java</file>
+            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/entites/User.java</file>
+            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/controller/Registration.java</file>
             <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/models/Business.java</file>
+            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/models/Country_city_state_code.properties</file>
             <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/controller/FrontController.java</file>
             <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/models/DBProperties.properties</file>
-            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/models/RegistrationUser.java</file>
+            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/models/Pojo.java</file>
             <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/web/WEB-INF/view/RegisterPage.jsp</file>
-            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/web/WEB-INF/view/LoginPage.jsp</file>
-            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/web/CSS/design.css</file>
-            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/web/WEB-INF/view/navebar_1.jsp</file>
-            <file>file:/home/mujeeb/NetBeansProjects/DigitalPocket/web/WEB-INF/view/navebar.jsp</file>
         </group>
     </open-files>
 </project-private>
