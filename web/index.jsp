@@ -10,9 +10,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     
         <style>
-            .banner-background{
-                clip-path: polygon(50% 0%, 100% 0, 100% 92%, 63% 100%, 17% 93%, 0 100%, 0 0);
-            }
+            
         </style>
     </head>
     <body>
@@ -26,20 +24,16 @@
                     <p> It work as a id card holder which can helps your all id proof save <br>as well as store all your id card information in a one place.</p>
                     <br>
                     <p>
-                    <div class="row">
-                        <form action="fc/Register" method="Post"class="col-md-8" >
-                            <button type="submit" class="btn btn-primary"  role="button"><span class="fa fa-2x fa-user-circle"></span> Sign Up</button>
-                        </form>                                
-                        <form action="fc/Login" method="Post" class="col-md-13 text-center" >    
-                            <button type="submit" class="btn btn-primary" href="#" role="button"><span class="fa fa-user-plus fa-2x fa-spin"></span> Login</button>
-                        </form>
-                    </div>
+                       
+                    
+                        <ul>
+                            <a href="fc/Register" class="btn btn-primary btn-lg my-marg"> <span class="fa fa-2x fa-user-circle"></span>  Sign Up </a>
+                            <a href="fc/LoginPage" class="btn btn-primary btn-lg my-marg"> <span class="fa fa-user-plus fa-2x "></span>  Login </a>
+                        
+                        </ul>
+                             
                     
                     </p>
-                    <%--
-                        request.getRequestDispatcher("WEB-INF/view/RegisterPage.jsp").forward(request,response);
-                       // request.getRequestDispatcher("WEB-INF/view/LoginPage.jsp").forward(request,response); 
-                    --%>
                   </div>
                 </div>
             </main>       

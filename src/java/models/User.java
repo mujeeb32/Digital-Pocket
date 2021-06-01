@@ -1,4 +1,7 @@
-package entites;
+package models;
+
+import java.sql.Timestamp;
+
 public class User {
     private String fname;
     private String lname;
@@ -11,6 +14,8 @@ public class User {
     private String answer;
     private String gender;
     private String phone;
+    private int uid;
+    private Timestamp dateTime;
     private int city_id;
     private int state_id;
     private int country_code;
@@ -20,7 +25,7 @@ public class User {
     public User() {
     }
 
-    public User(String fname, String lname, String email, String pass, String city, String state, String country, String question, String answer, String gender, int city_id, int state_id, int country_code, int status,String phone) {
+    public User(String fname, String lname, String email, String pass, String city, String state, String country, String question, String answer, String gender, int status,String phone) {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
@@ -50,6 +55,22 @@ public class User {
         this.state_id = state_id;
     }
 
+    public int getUid() {
+        return uid;
+    }
+
+    public Timestamp getDateTime() {
+        return dateTime;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public void setDateTime(Timestamp dateTime) {
+        this.dateTime = dateTime;
+    }
+    
     public void setCountry_code(int country_code) {
         this.country_code = country_code;
     }

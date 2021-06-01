@@ -9,15 +9,21 @@ import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Business;
+import javax.servlet.http.HttpSession;
+import models.ErrorMessage;
+import models.Login;
+import models.Registration;
+import models.User;
 
 /**
  *
  * @author mujeeb
  */
+@MultipartConfig
 public class FrontController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -28,19 +34,40 @@ public class FrontController extends HttpServlet {
                 String cp=request.getContextPath();
                 String sp=request.getServletPath();
                 String pi=request.getPathInfo();
-                //out.println(cp+"--"+sp+"--"+pi);
                 if(pi.equals("/index.jsp")){
-                    String path="http://localhost:8080"+cp+pi;
-                    response.sendRedirect(path);
+                        String path="http://localhost:8080"+cp+pi;
+                        response.sendRedirect(path);       
+                }else if(pi.equals("/Registration")){
+                        Registration obj=(Registration)Class.forName("models."+pi.substring(1)).newInstance();
+                        String res=obj.businessLogic(request);
+                            out.println(res);
+                }else if(pi.equals("/Login")){    
+                        Login obj=(Login)Class.forName("models."+pi.substring(1)).newInstance();
+                        User res=obj.businessLogic1(request);
+                        if(res!=null){
+                            HttpSession s=request.getSession();
+                            s.setAttribute("currentUser", res);
+                            pi="/Login";
+                        }else{
+                            ErrorMessage m=new ErrorMessage("Invalid Details ! try with another","error","alert-danger");
+                            HttpSession s=request.getSession();
+                            s.setAttribute("msg", m);
+                            pi="/LoginPage";
+                        }
+                }else if(pi.equals("/Logout")){
+                        HttpSession s=request.getSession();
+                        s.removeAttribute("currentUser");
+                        ErrorMessage m=new ErrorMessage("Logout Successfully","success","alert-success");
+                        s.setAttribute("msg", m);
+                        pi="/LoginPage";
                 }
-                FileReader reader = new FileReader("/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/models/DBProperties.properties");
+                FileReader reader = new FileReader("/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/models/LocationProperties.properties");
                 Properties p = new Properties();
                 p.load(reader);
                 String pt=p.getProperty(pi.substring(1));
-                //request.getRequestDispatcher("WEB-INF/view/LoginPage.jsp").forward(request,response);
                 String viewpath=pt;
-                //out.println(viewpath);
                 request.getRequestDispatcher(viewpath).forward(request, response);
+                
             }catch(Exception ee){
                 ee.printStackTrace();
             }

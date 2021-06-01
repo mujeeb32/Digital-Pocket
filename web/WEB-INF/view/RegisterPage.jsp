@@ -1,25 +1,17 @@
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="models.ErrorMessage"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="Error_page.jsp"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="CSS/design.css" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="/CSS/design.css" />" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <style>
-            .primary-background{
-                background:#09af00;
-            }
-            .primary-background1{
-                background:#b9b2c2;
-            }
-            .primary-background2{
-                background:#ddd6e7;
-            }
-        </style>
+        
     </head>
     <body>
         <%@include file="navebar_1.jsp" %>
@@ -30,16 +22,16 @@
                 <p>Register Here</p>
                 
             </div>
-            
+                           
             <div class="col-lg-12 well">
                 <div class="row">
                     <div class="card-body primary-background2">
-                        <form action="Registration" method="Post">
+                        <form id="reg-form" action="Registration" method="Post">
 					<div class="col-sm-12">
-						<div class="row">
+						<div class="row text-center">
 							<div class="col-sm-6 form-group">
 								<label>First Name</label>
-                                                                <input type="text" placeholder="Enter First Name Here.." class="form-control" name="firstname">
+                                                                <input type="text" placeholder="Enter First Name Here.." class="form-control" name="firstname" required>
 							</div>
 							<div class="col-sm-6 form-group">
 								<label>Last Name</label>
@@ -49,11 +41,11 @@
 						<div class="row">
 							<div class="col-sm-4 form-group">
 								<label>City</label>
-                                                                <input type="text" name="city" placeholder="Enter City Name Here.." class="form-control">
+                                                                <input type="text" name="city" placeholder="Enter City Name Here.." class="form-control" required>
 							</div>	
 							<div class="col-sm-4 form-group">
 								<label>State</label>
-								<input type="text" name="state" placeholder="Enter State Name Here.." class="form-control">
+								<input type="text" name="state" placeholder="Enter State Name Here.." class="form-control" required>
 							</div>	
 							<div class="col-sm-4 form-group">
 								<label for="country">Country</label><span style="color: red !important; display: inline; float: none;">*</span>      
@@ -232,46 +224,45 @@
 						<div class="row">
 							<div class="col-sm-6 form-group">
 								<label>Recovery Question?</label>
-                                                                <input type="text" name="question" placeholder="Enter Recovery Question Here.." class="form-control">
+                                                                <input type="text" name="question" placeholder="Enter Recovery Question Here.." class="form-control" required>
 							</div>		
 							<div class="col-sm-6 form-group">
 								<label>Recovery Answer</label>
-                                                                <input type="text" name="answer" placeholder="Enter Recovery Answer Here.." class="form-control">
+                                                                <input type="text" name="answer" placeholder="Enter Recovery Answer Here.." class="form-control" required>
 							</div>	
 						</div>						
 					<div class="form-group">
 						<label>Phone Number</label>
-						<input type="text" name="phone" placeholder="Enter Phone Number Here.." class="form-control">
+						<input type="text" name="phone" placeholder="Enter Phone Number Here.." class="form-control" required>
 					</div>		
 					<div class="form-group">
 						<label>Email Address</label>
-                                                <input type="text" name="email" placeholder="Enter Email Address Here.." class="form-control">
+                                                <input type="text" name="email" placeholder="Enter Email Address Here.." class="form-control" required>
 					</div>	
                                         <div class="form-group">
 						<label>Password</label>
-						<input type="password"  placeholder="Enter password Address Here.." name="password" class="form-control">
+						<input type="password"  placeholder="Enter password Address Here.." name="password" class="form-control" required>
 					</div>
                                         <div class="form-group">
                                             <label for="gender">Select Gender</label>
                                             <br>
-                                            <input type="radio"  id="gender" name="gender" value="male" >Male
-                                            <input type="radio"  id="gender" name="gender" value="famale">Female
+                                            <input type="radio"  id="gender" name="gender" value="male" required>Male
+                                            <input type="radio"  id="gender" name="gender" value="famale" required>Female
                                         </div>
                                         <div class="form-check">
-                                            <input name="check" type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <input name="check" type="checkbox" class="form-check-input" id="exampleCheck1" required>
                                             <label class="form-check-label" for="exampleCheck1">agree term and conditons</label>
                                         </div>
                                             <br>
-                                            <div  class="row">
-                                                <button type="submit" class="btn btn-lg btn-info col-md-6">Submit</button>
-                                        </form>          
-                                                    
-                                                <form action="Login" method="Post">
-                                                    <button type="submit" class="btn btn-primary col-md-12 text-left"role="button"><span class="fa fa-user-plus fa-2x "></span> Login</button>
-            
-                                                </form>
-                                                <%--<button id="gotosignin"><a href="LoginPage.jsp" id="gotosignin" class="tab">Login Form</a></button>--%>
+                                            <div class="container text-center" id="loader" style="display: none;">
+                                                <span class="fa fa-refresh fa-spin fa-4x"></span>
+                                                <h4>Please wait..</h4>
                                             </div>
+                                                <button id="sumbimt-btn" type="submit" class="btn btn-lg btn-info col-md-6">Submit</button>
+                                        
+                                    </form>          
+                                                    
+                                         
 					</div>
 				
                 </div>
@@ -285,6 +276,46 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+   <%-- <script src="../../JS/RegLogicjs.js" type="text/javascript"></script> --%>
     
+     <script>
+            $(document).ready(function () {
+                console.log("loaded........")
+                $('#reg-form').on('submit', function (event) {
+                    event.preventDefault();
+                    let form = new FormData(this);
+                    $("#sumbimt-btn").hide();
+                    $("#loader").show();
+                    //send register servlet:
+                    $.ajax({
+                        url: "Registration",
+                        type: 'POST',
+                        data: form,
+                        success: function (data, textStatus, jqXHR) {
+                            console.log(data)
+                            $("#sumbimt-btn").show();
+                            $("#loader").hide();
+                            if (data.trim() === 'exist'){
+                                swal("This User Account already exists")
+                                        .then((value) => {
+                                            window.location = "Register"
+                                        });
+                            }else{
+                                swal(data)                                                                
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#sumbimt-btn").show();
+                            $("#loader").hide();
+                            swal("something went wrong..try again");
+                        },
+                        processData: false,
+                        contentType: false
+                    });
+                });
+            });
+            
+  </script> 
     </body>
 </html>

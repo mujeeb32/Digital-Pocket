@@ -4,17 +4,9 @@
         <servlet-name>FrontController</servlet-name>
         <servlet-class>controller.FrontController</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>Registration</servlet-name>
-        <servlet-class>controller.Registration</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>FrontController</servlet-name>
         <url-pattern>/fc/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Registration</servlet-name>
-        <url-pattern>/registration</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
