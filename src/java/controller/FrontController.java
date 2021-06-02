@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.EditProfile;
 import models.ErrorMessage;
 import models.Login;
 import models.Registration;
@@ -60,6 +61,11 @@ public class FrontController extends HttpServlet {
                         ErrorMessage m=new ErrorMessage("Logout Successfully","success","alert-success");
                         s.setAttribute("msg", m);
                         pi="/LoginPage";
+                }else if(pi.equals("/EditProfile")){
+                        EditProfile obj=(EditProfile)Class.forName("models."+pi.substring(1)).newInstance();
+                        String res=obj.businessLogic(request);
+                        //out.println(res);
+                        pi="/Login";
                 }
                 FileReader reader = new FileReader("/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/models/LocationProperties.properties");
                 Properties p = new Properties();

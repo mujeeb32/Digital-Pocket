@@ -132,7 +132,6 @@ public class UserSetDB {
                 user = new User();
                 user.setEmail(set.getString("email"));
                 user.setPass(set.getString("password"));
-                
                 PreparedStatement pstmt1=con.prepareStatement("select * from user_master where email =?");
                 pstmt1.setString(1, email);
                 ResultSet set1 = pstmt1.executeQuery();
@@ -142,6 +141,7 @@ public class UserSetDB {
                     user.setLname(set1.getString("lastname"));
                     user.setPhone(set1.getString("phone_no"));
                     user.setUid(set1.getInt("uid"));
+                    user.setImg(set1.getString("profile"));
                     int city_id=set1.getInt("city_id");
                     int uid=set1.getInt("uid");
                     
@@ -176,5 +176,27 @@ public class UserSetDB {
 
         return user;
     }
-
+    
+    public boolean userUpdate(User user){
+        boolean flag1=false;
+        try{
+            String query="update user_master set firstname=?,lastname=?,phone_no=?,profile=? where uid=?";
+            PreparedStatement pstmt1=con.prepareStatement(query);
+            pstmt1.setString(1,user.getFname());
+            pstmt1.setString(2,user.getLname());
+            pstmt1.setString(3,user.getPhone());
+            pstmt1.setString(4,user.getImg());
+            pstmt1.setInt(5,user.getUid());
+            pstmt1.executeUpdate();
+            String query1="update login_master set password=? where email=?";
+            PreparedStatement pstmt2=con.prepareStatement(query1);
+            pstmt2.setString(1,user.getPass());
+            pstmt2.setString(2,user.getEmail());
+            pstmt2.executeUpdate();
+            flag1=true;
+        }catch(Exception ee){
+            ee.printStackTrace();
+        }
+        return flag1;
+    }
 }

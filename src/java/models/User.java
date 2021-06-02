@@ -20,7 +20,7 @@ public class User {
     private int state_id;
     private int country_code;
     private int status;
-    
+    private String img; 
     
     public User() {
     }
@@ -36,13 +36,18 @@ public class User {
         this.question = question;
         this.answer = answer;
         this.gender = gender;
-        this.city_id = city_id;
-        this.state_id = state_id;
-        this.country_code = country_code;
         this.status = status;
         this.phone=phone;
     }
 
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+    
     public void setPhone(String phone) {
         this.phone = phone;
     }

@@ -77,16 +77,20 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+        <div class="modal-body">
           <div class="container text-center">
-              
+              <%
+                  String pt="/img/"+user.getImg();
+              %>
+              <img src="<c:url value="<%= pt %>" />"  class="img-fluid" style="border-radius:50%;max-width: 150px;;" />
+              <br>
               <h5 class="modal-title" id="exampleModalLabel"> <%= user.getFname()%> <%= user.getLname()%> </h5><br>
-              <div class="profile-details">
+              <div id="profile-details">
                 <table class="table">
                   <tbody>
                     <tr>
                       <th scope="row">Name:</th>
-                      <td><%= user.getFname()%> <%= user.getLname()%></td>
+                      <td><%= user.getFname()%> <%= user.getLname()%> </td>
                     </tr>
                     <tr>
                       <th scope="row" >Email</th>
@@ -111,9 +115,69 @@
                   </tbody>
                 </table>
               </div>
-                    <div class="profile-edit" style="display: none;">
-                        <h2>Edit</h2>
-                    </div>
+                    
+                    <div id="profile-edit" style="display: none;">
+                                <h3 class="mt-2">Please Edit Carefully</h3>
+                                <form action="EditProfile" method="post" enctype="multipart/form-data">
+                                    <table class="table">
+                                        <tr>
+                                            <td>ID :</td>
+                                            <td><%= user.getUid()%></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email :</td>
+                                            <td> <input type="email" class="form-control" name="email" value="<%= user.getEmail()%>" > </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fname :</td>
+                                            <td> <input type="text" class="form-control" name="firstname" value="<%= user.getFname()%>" > </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lname :</td>
+                                            <td> <input type="text" class="form-control" name="lastname" value="<%= user.getLname()%>" > </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Password :</td>
+                                            <td> <input type="password" class="form-control" name="password" value="<%= user.getPass()%>" > </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phone Number :</td>
+                                            <td> <input type="text" class="form-control" name="phone" value="<%= user.getPhone()%>" > </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gender :</td>
+                                            <td> <%= user.getGender().toUpperCase()%> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>City :</td>
+                                            <td> <input type="text" class="form-control" name="city" value="<%= user.getCity()%>" > </td>
+                                        </tr>
+                                        <tr>
+                                            <td>State :</td>
+                                            <td> <input type="text" class="form-control" name="state" value="<%= user.getState()%>" > </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Country :</td>
+                                            <td> <input type="text" class="form-control" name="country" value="<%= user.getCountry()%>" > </td>
+                                        </tr>
+                                        <tr>
+                                            <td>New Profile:</td>
+                                            <td>
+                                                <input type="file" name="image" class="form-control" >
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                    <div class="container">
+                                        <button type="submit" class="btn btn-outline-primary">Save</button>
+                                    </div>
+
+                                </form>    
+
+                            </div>
+                    
+                    
           </div>
       </div>
       <div class="modal-footer">
@@ -129,8 +193,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script>
-                                        $(document).ready(function () {
+    
+     <script>
+                                $(document).ready(function () {
                                     let editStatus = false;
                                     $('#edit-profile-button').click(function ()
                                     {
@@ -149,6 +214,7 @@
                                         }
                                     })
                                 });
-    </script>
+        </script>
+    
     </body>
 </html>
