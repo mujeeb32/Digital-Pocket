@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import models.EditProfile;
 import models.ErrorMessage;
 import models.Login;
 import models.Registration;
+import models.SavePost1;
 import models.User;
 
 /**
@@ -66,6 +68,11 @@ public class FrontController extends HttpServlet {
                         String res=obj.businessLogic(request);
                         //out.println(res);
                         pi="/Login";
+                }else if(pi.equals("/AddPost")){
+                        SavePost1 obj=(SavePost1)Class.forName("models."+"SavePost1").newInstance();
+                        String res=obj.businessLogic(request);
+                        out.println(res);
+                        
                 }
                 FileReader reader = new FileReader("/home/mujeeb/NetBeansProjects/DigitalPocket/src/java/models/LocationProperties.properties");
                 Properties p = new Properties();

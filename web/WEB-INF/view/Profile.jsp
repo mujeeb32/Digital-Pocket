@@ -1,3 +1,4 @@
+<%@page import="models.ErrorMessage"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="models.User" %>
 <% 
@@ -15,11 +16,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link href="<c:url value="/CSS/design.css" />" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="/CSS/profileDesign.css" />" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         
         <nav class="navbar navbar-expand-lg navbar-dark primary-background">
-            <a class="navbar-brand" href="#"><span class="fas fa-wallet fa-1x" style="color:white"></span>  Digital Pocket</a>
+            <a class="navbar-brand" href="index.jsp"><span class="fas fa-wallet fa-1x" style="color:white"></span>  Digital Pocket</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,7 +31,9 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="index.jsp"><span class="fas fa-home fa-1x"></span> Home </a>
                     </li>
-                    
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" data-toggle="modal" data-target="#add-post-model"><span class="fas fa-upload"></span> Upload Documents </a>
+                    </li>
                 </ul>
                 
                 <ul class="navbar-nav mr-right">
@@ -40,6 +44,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="Logout"> <span class="fa fa-user-plus "></span> Logout</a>
                     </li>
+                    
                 </ul>
                 
             </div>
@@ -66,7 +71,28 @@
                     
                     
         <!-- Button trigger modal -->
+                            <%
+                                ErrorMessage m = (ErrorMessage) session.getAttribute("msg");
+                                if (m != null) {
+                            %>
+                            <div class="alert <%= m.getCssClass() %>" role="alert">
+                                <%= m.getContent() %>
+                            </div> 
+
+
+                            <%        
+                                    session.removeAttribute("msg");
+                                }
+                            %>
+
+                            
+<!-- Main body of the page -->    
+<main >
+    <div class="container">
         
+    </div>
+    
+</main>
 <!-- Modal -->
 <div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -188,12 +214,46 @@
   </div>
 </div>
         
-        
+       
+
+<!-- Modal -->
+<div class="modal fade" id="add-post-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Details of Documents</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form id="add-post-form" action="AddPost" method="Post">
+                <div class="form-group">
+                    <label>Title Name</label>
+                  <input name="name" type="text" placeholder="Enter Documents Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>File Extension</label>
+                  <input name="extension" type="text" placeholder="File Extension:(documents,image only)" class="form-control" />
+                </div>
+              <div>
+                  <label>Select Documents</label><br>
+                  <input name="file" type="file"/>
+              </div>
+              <div class="container text-center">
+                       <button type="submit" class="btn btn-outline-primary">Post </button>
+              </div>
+          </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
         
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
      <script>
                                 $(document).ready(function () {
                                     let editStatus = false;
@@ -215,6 +275,40 @@
                                     })
                                 });
         </script>
-    
+        
+        <script>
+            $(document).ready(function (e) {
+                //
+                $("#add-post-form").on("submit", function (event) {
+                    //this code gets called when form is submitted....
+                    event.preventDefault();
+                    console.log("you have clicked on submit..")
+                    let form = new FormData(this);
+                    //now requesting to server
+                    $.ajax({
+                        url: "AddPost",
+                        type: 'POST',
+                        data: form,
+                        success: function (data, textStatus, jqXHR) {
+                            //success ..
+                            console.log(data);
+                            if (data.trim() == 'done')
+                            {
+                                swal("Good job!", "saved successfully", "success");
+                            } else
+                            {
+                                swal("Error!!", "Something went wrong try again...", "error");
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            //error..
+                            swal("Error!!", "Something went wrong try again...", "error");
+                        },
+                        processData: false,
+                        contentType: false
+                    })
+                })
+            })
+        </script>
     </body>
 </html>

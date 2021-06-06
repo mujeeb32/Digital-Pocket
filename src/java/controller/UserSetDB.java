@@ -88,7 +88,7 @@ public class UserSetDB {
                 }
                         Statement stmt=this.con.createStatement();
                         ResultSet res=stmt.executeQuery("select * from user_master");
-                        int p=1;
+                        int p=0;
                         while(res.next()){
                             p=res.getInt("uid");
                         }
