@@ -8,8 +8,8 @@
          margin: 10px;
 }
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 0px;
+  
 }
 .primary-background{
     background:#09af00;
@@ -110,4 +110,10 @@ body {
  .left_div img{
 	height: 198px;
 	width: 1910px;
+}
+
+
+.navbar a:hover{
+    background: #198303;
+    
 }

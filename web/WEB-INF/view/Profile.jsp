@@ -10,16 +10,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="../../CSS/design.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link href="<c:url value="/CSS/design.css" />" rel="stylesheet" type="text/css"/>
         <link href="<c:url value="/CSS/profileDesign.css" />" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        
+        <%--
         <nav class="navbar navbar-expand-lg navbar-dark primary-background">
             <a class="navbar-brand" href="index.jsp"><span class="fas fa-wallet fa-1x" style="color:white"></span>  Digital Pocket</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,13 +51,49 @@
                 
             </div>
         </nav>
-        
+       --%> 
                     
 
-                    
-                    
-                    
-                    
+        
+       <input type="checkbox" id="check">    
+       <header>
+           <label for="check">
+               <i class="fas fa-bars" id="sidebar_btn"></i>
+           </label>
+           <div class="left_area">
+               <h3>Digital<span>Pocket</span></h3>
+               <a class="home_button" href="index.jsp"><span class="fas fa-home fa-1x"></span> Home </a>
+               <a class="home_button1" href="#" data-toggle="modal" data-target="#add-post-model"><span class="fas fa-upload"></span> Upload Documents </a>
+           </div>
+           <div class="right_area">
+               <a class="logout_btn" href="Logout"> <span class="fa fa-user-plus "></span> Logout</a>
+           </div>
+           <div class="right_area">
+               <a class="logout_btn" href="#!" data-toggle="modal" data-target="#profile-modal"> <span class="fa fa-1x fa-user-circle "></span> <%= user.getFname()%> <%= user.getLname()%> </a>
+           </div>
+       </header>     
+           
+       <div class="sidebar" >
+           <div class="profile_info">
+            <%
+                  String pt1="/img/"+user.getImg();
+            %>
+              <img src="<c:url value="<%= pt1 %>" />"  class="profile_image"  />
+              <br>
+              <h3 class="modal-title text-white" id="exampleModalLabel"> <%= user.getFname()%> <%= user.getLname()%> </h3><br>
+            </div>
+            <a href="#" class=""><i class="fas fa-folder-open"></i><span>All Documents</span></a>
+            <a href="#" class=""><i class="fas fa-images"></i><span>Image</span></a>
+            <a href="#" class=""><i class="fas fa-file-pdf"></i><span>PDF DOC File</span></a>
+            <a href="#" class=""><i class="fas fa-info-circle"></i><span>About</span></a>
+            <a href="#" class=""><i class="fas fa-user-cog"></i><span>Settings</span></a>
+            
+        </div>
+            <div class="content">
+                
+            </div>  
+                  
+                     
                     
                     
                     
@@ -71,7 +109,7 @@
                     
                     
         <!-- Button trigger modal -->
-                            <%
+                     <%--       <%
                                 ErrorMessage m = (ErrorMessage) session.getAttribute("msg");
                                 if (m != null) {
                             %>
@@ -83,16 +121,12 @@
                             <%        
                                     session.removeAttribute("msg");
                                 }
-                            %>
+                            %> --%>
 
                             
 <!-- Main body of the page -->    
-<main >
-    <div class="container">
-        
-    </div>
-    
-</main>
+ 
+
 <!-- Modal -->
 <div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -110,7 +144,7 @@
               %>
               <img src="<c:url value="<%= pt %>" />"  class="img-fluid" style="border-radius:50%;max-width: 150px;;" />
               <br>
-              <h5 class="modal-title" id="exampleModalLabel"> <%= user.getFname()%> <%= user.getLname()%> </h5><br>
+              <h5 class="modal-title " id="exampleModalLabel"> <%= user.getFname()%> <%= user.getLname()%> </h5><br>
               <div id="profile-details">
                 <table class="table">
                   <tbody>
