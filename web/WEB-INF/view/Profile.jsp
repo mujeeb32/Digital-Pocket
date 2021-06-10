@@ -1,3 +1,7 @@
+<%@page import="java.util.List"%>
+<%@page import="models.Post"%>
+<%@page import="models.Pojo"%>
+<%@page import="controller.PostSetDB"%>
 <%@page import="models.ErrorMessage"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="models.User" %>
@@ -10,7 +14,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width-device-width, initial-scale=1.0">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="../../CSS/design.css" rel="stylesheet" type="text/css"/>
@@ -18,9 +21,199 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link href="<c:url value="/CSS/design.css" />" rel="stylesheet" type="text/css"/>
-        <link href="<c:url value="/CSS/profileDesign.css" />" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="/CSS/profile2.css" />" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        
+         <div class="wrapper">
+            <!--header menu start-->
+            <div class="header">
+                <div class="header-menu">
+                    <div class="title">Digital <span>Pocket</span></div>
+                    <div class="nav_left">
+                        <ul>
+                            <li><a href="index.jsp"><i class="fas fa-home fa-1x"></i></a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#add-post-model"><i class="fas fa-upload"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="nav_right">
+                        <ul>
+                            <li><a href="#" data-toggle="modal" data-target="#profile-modal"><i class="fa fa-user"></i><br></a></li>
+                            <li><a href="Logout"><i class="fas fa-sign-out-alt"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--header menu end-->
+            <!--sidebar start-->
+           <div class="sidebar">
+                <div class="sidebar-menu">
+                    <center class="profile">
+                        <%
+                            String pt1="/img/"+user.getImg();
+                        %>
+                        <img src="<c:url value="<%= pt1 %>" />"  class="profile_image"  />
+                        <p><%= user.getFname()%> <%= user.getLname()%></p>
+                    </center>
+                    <li class="item">
+                        <a href="#" class="menu-btn" onclick="myFunction1()" >
+                            <i class="fas fa-folder-open"></i><span>All Documents</span>
+                        </a>
+                    </li>
+                    <li class="item" id="profile">
+                        <a href="#profile" class="menu-btn">
+                            <i class="fas fa-user-circle"></i><span>Profile <i class="fas fa-chevron-down drop-down"></i></span>
+                        </a>
+                        <div class="sub-menu">
+                            <a href="#" data-toggle="modal" data-target="#profile-modal"><i class="fas fa-address-card"></i><span>Info</span></a>
+                        </div>
+                    </li>
+                    <li class="item" >
+                        <a href="#" class="menu-btn" onclick="myFunction2()"><i class="fas fa-images"></i><span>Image</span></a>
+                    </li>
+                    <li class="item" >    
+                            
+                            <a href="#" class="menu-btn" onclick="myFunction3()"><i class="fas fa-file-pdf"></i><span>PDF and DOC</span></a>
+                        
+                    </li>
+                    <li class="item" id="settings">
+                        <a href="#settings" class="menu-btn">
+                            <i class="fas fa-cog"></i><span>Settings <i class="fas fa-chevron-down drop-down"></i></span>
+                        </a>
+                        <div class="sub-menu">
+                            <a href="#!" data-toggle="modal" data-target="#profile-modal"><i class="fas fa-lock"></i><span>Password</span></a>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="menu-btn">
+                            <i class="fas fa-info-circle"></i><span>About</span>
+                        </a>
+                    </li>
+                </div>
+            </div>
+            <!--sidebar end-->
+            <!--main container start-->
+           <div id="Alldocuments-post" class="main-container"  style="display:none">
+                <%
+                    PostSetDB d=new PostSetDB(Pojo.getConnection());
+                    List<Post> posts=d.getAllPost(user.getUid());
+                    if(posts.size()==0){
+                %>
+                <h3>Data empty please Upload Data chose upload button......</h3>
+                <%
+                    }else{
+                        for(int i=0;i<posts.size();i++){
+                            Post p1=posts.get(i);
+                %>
+                        <div class="row">
+                        <div class="card " style="width: 26rem; height: 30rem;">
+
+                                <%
+                                if(p1.getDoc_type()=="Photo"){
+                                    String pos1="/Allpost/"+p1.getDoc_location();
+                                    %>
+
+                                    <img src="<c:url value="<%= pos1 %>" />"  class="profile_image"  />
+                            <%
+                                }else{
+                                    String pos1="/AllPost/"+p1.getDoc_location();
+                                    %>
+                                    <iframe src="<c:url value="<%= pos1 %>" />" height="100%" width="100%">  </iframe>
+                                    <%
+                                }
+                                %>
+
+                            <div class="card-body">
+                                <h5 class="card-title"><%= p1.getDoc_filename() %></h5>
+                                <p class="card-text">Upload time.<%= p1.getDoc_datetime() %> And Size.<%= p1.getDoc_size() %>kb</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                            <%
+                                i++;
+                                if(i<posts.size()){
+                                    p1=posts.get(i);
+                            %>
+                            <div class="card " style="width: 26rem;height: 30rem;">
+                            <%
+                                if(p1.getDoc_type()=="Photo"){
+                                    String pos2="/AllPost/"+p1.getDoc_location();
+                                    %>
+                                    <img src="<c:url value="<%= pos2 %>" />"  class="profile_image"  />
+                                    <%
+                                }else{
+                                    String pos2="/AllPost/"+p1.getDoc_location();
+                                    %>
+                                    <iframe src="<c:url value="<%= pos2 %>" />" height="100%" width="100%">  </iframe>
+                                    <%
+                                }
+                                %>
+
+                            <div class="card-body">
+                                <h5 class="card-title"><%= p1.getDoc_filename() %></h5>
+                                <p class="card-text">Upload time.<%= p1.getDoc_datetime() %> And Size.<%= p1.getDoc_size() %>kb </p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                            <%
+                                }else{
+                                    break;
+                                }
+                            %>
+                            <%
+                                i++;
+                                if(i<posts.size()){
+                                    p1=posts.get(i);
+                            %>
+                            <div class="card " style="width: 26rem;height: 30rem;">
+                            <%
+                                if(p1.getDoc_type()=="Photo"){
+                                    String pos2="/AllPost/"+p1.getDoc_location();
+                                    %>
+                                    <img src="<c:url value="<%= pos2 %>" />"  class="profile_image"  />
+                                    <%
+                                }else{
+                                    String pos2="/AllPost/"+p1.getDoc_location();
+                                    %>
+                                    <iframe src="<c:url value="<%= pos2 %>" />" height="100%" width="100%"></iframe>
+                                    <%
+                                }
+                                 %>
+
+                            <div class="card-body">
+                                <h5 class="card-title"><%= p1.getDoc_filename() %></h5>
+                                <p class="card-text">Upload time.<%= p1.getDoc_datetime() %> And Size.<%= p1.getDoc_size() %>kb</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                            <%
+                                }else{
+                                    break;
+                                }
+                            %>
+                        </div>
+                            <% }
+                            }
+                            %>
+                    </div>
+            
+            
+            <%--   image file show only --%>
+            <div id="AllPhoto-post" class="main-container"  style="display:none"> 
+                <h1>photo</h1>
+
+            </div>
+         
+            <%--   image file show only  --%>
+            <div id="AllPdf-post" class="main-container"  style="display:none">
+               <h1>pdf</h1>
+            </div>  
+                        <!--main container end-->
+        </div>
+
+        
+
+        
         <%--
         <nav class="navbar navbar-expand-lg navbar-dark primary-background">
             <a class="navbar-brand" href="index.jsp"><span class="fas fa-wallet fa-1x" style="color:white"></span>  Digital Pocket</a>
@@ -53,60 +246,7 @@
         </nav>
        --%> 
                     
-
-        
-       <input type="checkbox" id="check">    
-       <header>
-           <label for="check">
-               <i class="fas fa-bars" id="sidebar_btn"></i>
-           </label>
-           <div class="left_area">
-               <h3>Digital<span>Pocket</span></h3>
-               <a class="home_button" href="index.jsp"><span class="fas fa-home fa-1x"></span> Home </a>
-               <a class="home_button1" href="#" data-toggle="modal" data-target="#add-post-model"><span class="fas fa-upload"></span> Upload Documents </a>
-           </div>
-           <div class="right_area">
-               <a class="logout_btn" href="Logout"> <span class="fa fa-user-plus "></span> Logout</a>
-           </div>
-           <div class="right_area">
-               <a class="logout_btn" href="#!" data-toggle="modal" data-target="#profile-modal"> <span class="fa fa-1x fa-user-circle "></span> <%= user.getFname()%> <%= user.getLname()%> </a>
-           </div>
-       </header>     
-           
-       <div class="sidebar" >
-           <div class="profile_info">
-            <%
-                  String pt1="/img/"+user.getImg();
-            %>
-              <img src="<c:url value="<%= pt1 %>" />"  class="profile_image"  />
-              <br>
-              <h3 class="modal-title text-white" id="exampleModalLabel"> <%= user.getFname()%> <%= user.getLname()%> </h3><br>
-            </div>
-            <a href="#" class=""><i class="fas fa-folder-open"></i><span>All Documents</span></a>
-            <a href="#" class=""><i class="fas fa-images"></i><span>Image</span></a>
-            <a href="#" class=""><i class="fas fa-file-pdf"></i><span>PDF DOC File</span></a>
-            <a href="#" class=""><i class="fas fa-info-circle"></i><span>About</span></a>
-            <a href="#" class=""><i class="fas fa-user-cog"></i><span>Settings</span></a>
-            
-        </div>
-            <div class="content">
-                
-            </div>  
-                  
-                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+       
                     
         <!-- Button trigger modal -->
                      <%--       <%
@@ -264,15 +404,22 @@
           <form id="add-post-form" action="AddPost" method="Post">
                 <div class="form-group">
                     <label>Title Name</label>
-                  <input name="name" type="text" placeholder="Enter Documents Name" class="form-control" />
+                  <input name="name" type="text" placeholder="Enter Documents Name" class="form-control" required />
                 </div>
                 <div class="form-group">
                     <label>File Extension</label>
-                  <input name="extension" type="text" placeholder="File Extension:(documents,image only)" class="form-control" />
+                  <input name="extension" type="text" placeholder="File Extension:(Photo or DoxAndPdf  only)" class="form-control" /> 
+              <%--    <label for="fextension">File Extension</label><span style="color: red !important; display: inline; float: none;">*</span>      
+        
+                    <select id="fextension" name="name"  class="form-control">
+                        <option value="Photo" disabled>Select option</option>
+                        <option value="Photo">Photo</option>
+                        <option value="DoxAndPdf">DoxAndPdf</option>
+                    </select> --%>   
                 </div>
               <div>
                   <label>Select Documents</label><br>
-                  <input name="file" type="file"/>
+                  <input name="file" type="file" required/>
               </div>
               <div class="container text-center">
                        <button type="submit" class="btn btn-outline-primary">Post </button>
@@ -288,7 +435,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-     <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    <script>
                                 $(document).ready(function () {
                                     let editStatus = false;
                                     $('#edit-profile-button').click(function ()
@@ -344,5 +492,46 @@
                 })
             })
         </script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $(".sidebar-btn").click(function(){
+                $(".wrapper").toggleClass("collapse");
+            });
+        });
+        </script>
+        
+        <script>
+            function myFunction1() {
+                var x = document.getElementById("Alldocuments-post");
+                if(x.style.display==="none"){
+                    var x1 = document.getElementById('AllPhoto-post');
+                    var x2 = document.getElementById('AllPdf-post');
+                    if(x1.style.display==="block"){x1.style.display = "none";}
+                    if(x2.style.display==="block"){x2.style.display = "none";}
+                    x.style.display = "block";     
+                }
+            }
+            function myFunction2(){
+                var x = document.getElementById("AllPhoto-post");
+                if(x.style.display==="none"){
+                    var x1 = document.getElementById('Alldocuments-post');
+                    var x2 = document.getElementById('AllPdf-post');
+                    if(x1.style.display==="block"){x1.style.display = "none";}
+                    if(x2.style.display==="block"){x2.style.display = "none";}
+                    x.style.display = "block"; 
+                }
+            }
+            function myFunction3(){
+                var x = document.getElementById("AllPdf-post");
+                if(x.style.display==="none"){
+                    var x1 = document.getElementById('Alldocuments-post');
+                    var x2 = document.getElementById('AllPhoto-post');
+                    if(x1.style.display==="block"){x1.style.display = "none";}
+                    if(x2.style.display==="block"){x2.style.display = "none";}
+                    x.style.display = "block";
+                }   
+            } 
+        </script>
+        
     </body>
 </html>

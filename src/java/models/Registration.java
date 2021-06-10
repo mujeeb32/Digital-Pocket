@@ -1,9 +1,6 @@
-
 package models;
-
 import controller.UserSetDB;
 import javax.servlet.http.HttpServletRequest;
-
 public class Registration implements Business{
     public String businessLogic(HttpServletRequest request){
             String fname = request.getParameter("firstname");
