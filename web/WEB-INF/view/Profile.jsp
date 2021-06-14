@@ -6,8 +6,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="models.User" %>
 <% 
-    User user=(User)session.getAttribute("currentUser");
-    
+    User user=(User)session.getAttribute("currentUser");   
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -56,7 +55,7 @@
                         <p><%= user.getFname()%> <%= user.getLname()%></p>
                     </center>
                     <li class="item">
-                        <a href="#" class="menu-btn" onclick="myFunction1()" >
+                        <a href="#" class="menu-btn" onclick="getPost(0)" >
                             <i class="fas fa-folder-open"></i><span>All Documents</span>
                         </a>
                     </li>
@@ -69,11 +68,11 @@
                         </div>
                     </li>
                     <li class="item" >
-                        <a href="#" class="menu-btn" onclick="myFunction2()"><i class="fas fa-images"></i><span>Image</span></a>
+                        <a href="#" class="menu-btn" onclick="getPost(1)"><i class="fas fa-images"></i><span>Image</span></a>
                     </li>
                     <li class="item" >    
                             
-                            <a href="#" class="menu-btn" onclick="myFunction3()"><i class="fas fa-file-pdf"></i><span>PDF and DOC</span></a>
+                            <a href="#" class="menu-btn" onclick="getPost(2)"><i class="fas fa-file-pdf"></i><span>PDF and DOC</span></a>
                         
                     </li>
                     <li class="item" id="settings">
@@ -93,122 +92,19 @@
             </div>
             <!--sidebar end-->
             <!--main container start-->
-           <div id="Alldocuments-post" class="main-container"  style="display:none">
-                <%
-                    PostSetDB d=new PostSetDB(Pojo.getConnection());
-                    List<Post> posts=d.getAllPost(user.getUid());
-                    if(posts.size()==0){
-                %>
-                <h3>Data empty please Upload Data chose upload button......</h3>
-                <%
-                    }else{
-                        for(int i=0;i<posts.size();i++){
-                            Post p1=posts.get(i);
-                %>
-                        <div class="row">
-                        <div class="card " style="width: 26rem; height: 30rem;">
-
-                                <%
-                                if(p1.getDoc_type()=="Photo"){
-                                    String pos1="/Allpost/"+p1.getDoc_location();
-                                    %>
-
-                                    <img src="<c:url value="<%= pos1 %>" />"  class="profile_image"  />
-                            <%
-                                }else{
-                                    String pos1="/AllPost/"+p1.getDoc_location();
-                                    %>
-                                    <iframe src="<c:url value="<%= pos1 %>" />" height="100%" width="100%">  </iframe>
-                                    <%
-                                }
-                                %>
-
-                            <div class="card-body">
-                                <h5 class="card-title"><%= p1.getDoc_filename() %></h5>
-                                <p class="card-text">Upload time.<%= p1.getDoc_datetime() %> And Size.<%= p1.getDoc_size() %>kb</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                            <%
-                                i++;
-                                if(i<posts.size()){
-                                    p1=posts.get(i);
-                            %>
-                            <div class="card " style="width: 26rem;height: 30rem;">
-                            <%
-                                if(p1.getDoc_type()=="Photo"){
-                                    String pos2="/AllPost/"+p1.getDoc_location();
-                                    %>
-                                    <img src="<c:url value="<%= pos2 %>" />"  class="profile_image"  />
-                                    <%
-                                }else{
-                                    String pos2="/AllPost/"+p1.getDoc_location();
-                                    %>
-                                    <iframe src="<c:url value="<%= pos2 %>" />" height="100%" width="100%">  </iframe>
-                                    <%
-                                }
-                                %>
-
-                            <div class="card-body">
-                                <h5 class="card-title"><%= p1.getDoc_filename() %></h5>
-                                <p class="card-text">Upload time.<%= p1.getDoc_datetime() %> And Size.<%= p1.getDoc_size() %>kb </p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                            <%
-                                }else{
-                                    break;
-                                }
-                            %>
-                            <%
-                                i++;
-                                if(i<posts.size()){
-                                    p1=posts.get(i);
-                            %>
-                            <div class="card " style="width: 26rem;height: 30rem;">
-                            <%
-                                if(p1.getDoc_type()=="Photo"){
-                                    String pos2="/AllPost/"+p1.getDoc_location();
-                                    %>
-                                    <img src="<c:url value="<%= pos2 %>" />"  class="profile_image"  />
-                                    <%
-                                }else{
-                                    String pos2="/AllPost/"+p1.getDoc_location();
-                                    %>
-                                    <iframe src="<c:url value="<%= pos2 %>" />" height="100%" width="100%"></iframe>
-                                    <%
-                                }
-                                 %>
-
-                            <div class="card-body">
-                                <h5 class="card-title"><%= p1.getDoc_filename() %></h5>
-                                <p class="card-text">Upload time.<%= p1.getDoc_datetime() %> And Size.<%= p1.getDoc_size() %>kb</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                            <%
-                                }else{
-                                    break;
-                                }
-                            %>
-                        </div>
-                            <% }
-                            }
-                            %>
-                    </div>
-            
-            
-            <%--   image file show only --%>
-            <div id="AllPhoto-post" class="main-container"  style="display:none"> 
-                <h1>photo</h1>
-
+            <div  class="main-container" >
+                <div id="loader" class="text-center">
+                    <i class="fa fa-refresh fa-4x fa-spin "></i>
+                    <h3 class="mt-2">Loading..</h3>
+                </div>
+                <div  id="Alldocuments-post">
+                    
+                </div>
             </div>
-         
-            <%--   image file show only  --%>
-            <div id="AllPdf-post" class="main-container"  style="display:none">
-               <h1>pdf</h1>
-            </div>  
-                        <!--main container end-->
+            
+            
+            
+            <!--main container end-->
         </div>
 
         
@@ -501,37 +397,21 @@
         </script>
         
         <script>
-            function myFunction1() {
-                var x = document.getElementById("Alldocuments-post");
-                if(x.style.display==="none"){
-                    var x1 = document.getElementById('AllPhoto-post');
-                    var x2 = document.getElementById('AllPdf-post');
-                    if(x1.style.display==="block"){x1.style.display = "none";}
-                    if(x2.style.display==="block"){x2.style.display = "none";}
-                    x.style.display = "block";     
-                }
+            function getPost(catId){
+                $.ajax({
+                    url: "trayel",
+                    data: {cid:catId},
+                   success: function (data, textStatus, jqXHR){
+                        console.log(data);
+                        $("#loader").hide();
+                        $('#Alldocuments-post').html(data)
+                    }
+                })
             }
-            function myFunction2(){
-                var x = document.getElementById("AllPhoto-post");
-                if(x.style.display==="none"){
-                    var x1 = document.getElementById('Alldocuments-post');
-                    var x2 = document.getElementById('AllPdf-post');
-                    if(x1.style.display==="block"){x1.style.display = "none";}
-                    if(x2.style.display==="block"){x2.style.display = "none";}
-                    x.style.display = "block"; 
-                }
-            }
-            function myFunction3(){
-                var x = document.getElementById("AllPdf-post");
-                if(x.style.display==="none"){
-                    var x1 = document.getElementById('Alldocuments-post');
-                    var x2 = document.getElementById('AllPhoto-post');
-                    if(x1.style.display==="block"){x1.style.display = "none";}
-                    if(x2.style.display==="block"){x2.style.display = "none";}
-                    x.style.display = "block";
-                }   
-            } 
+            $(document).ready(function(e){
+                    getPost(4);
+            })
         </script>
-        
+       
     </body>
 </html>

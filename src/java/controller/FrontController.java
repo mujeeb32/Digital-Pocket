@@ -22,10 +22,6 @@ import models.Registration;
 import models.SavePost1;
 import models.User;
 
-/**
- *
- * @author mujeeb
- */
 @MultipartConfig
 public class FrontController extends HttpServlet {
 
